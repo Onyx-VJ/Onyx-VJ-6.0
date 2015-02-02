@@ -1,0 +1,18 @@
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip,clamp>
+tex ft1, v0, fs1 <2d,nearest,nomip,clamp>
+
+// premultiply, set alpha to 1.0
+mul ft2, ft1.xyz, ft1.www
+add ft3, fc0, ft2
+sub ft4
+mov oc, ft2
+
+// unmultiply the alpha
+
+// sub ft4, ft0.xyzw, ft2.xyzw
+// abs oc, ft4

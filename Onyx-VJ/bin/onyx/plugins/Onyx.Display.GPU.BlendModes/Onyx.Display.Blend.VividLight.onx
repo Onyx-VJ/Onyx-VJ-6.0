@@ -1,0 +1,62 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.VividLight::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"VividLight",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* FC 0 */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		},
+		
+		/* FC 1 */
+		{
+			"type":		"float4",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		},
+		
+		/* FC 2 */
+		{
+			"type":		"float4",
+			"data":	[
+				0.5, 0.5, 0.5, 0.5
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+
+// contains minor differences
+tex ft0, v0, fs0 <2d,nomip,nearest>
+tex ft1, v0, fs1 <2d,nomip,nearest>
+mul ft2, ft1.rgb, fc0.www
+mul ft1, ft2.rgb, fc0.rgb
+add ft4, ft1, ft1
+sub ft4, ft4, fc1.rgb
+sub ft3.rgb, fc1.rgb, ft4
+div ft3.rgb, ft0, ft3.rgb
+add ft4, ft1, ft1
+sub ft2.rgb, ft0, fc1.rgb
+add ft2.rgb, ft2.rgb, ft4
+div ft2.rgb, ft2.rgb, ft4
+slt ft6, ft1, fc2.rgb
+sge ft4, ft1, fc2.rgb
+mul ft6, ft6, ft2.rgb
+mul ft4, ft4, ft3.rgb
+add oc, ft6, ft4

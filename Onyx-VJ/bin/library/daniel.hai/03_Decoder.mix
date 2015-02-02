@@ -1,0 +1,206 @@
+{
+	"layers": [
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"time": {
+					"value": 0
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": false
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::CPU"
+					}
+				}
+			},
+			"channel": {
+				"filters": [
+					{
+						"parameters": {
+							"contrast": {
+								"value": 0
+							},
+							"brightness": {
+								"value": 0
+							},
+							"saturation": {
+								"value": 0.10666666666666663
+							},
+							"muted": {
+								"value": false
+							},
+							"hue": {
+								"value": 0
+							},
+							"threshold": {
+								"value": 0
+							}
+						},
+						"id": "Onyx.Filter.ColorFilter::CPU"
+					}
+				],
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"streamName": {
+						"value": "livestream"
+					},
+					"connect": {
+						
+					},
+					"host": {
+						"value": "rtmp://localhost/live"
+					}
+				},
+				"path": "/library/daniel.hai/RTMPatch.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"time": {
+					"value": 0
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": true
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::CPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"boundChannel": "Layer: 0",
+					"steps": {
+						"value": 6
+					},
+					"delay": {
+						"value": 42
+					},
+					"blend": {
+						"id": "Onyx.Display.Blend.Lighten::CPU",
+						"data": {
+							"id": "Onyx.Display.Blend.Lighten::CPU"
+						}
+					}
+				},
+				"path": "/library/daniel.hai/MultiChannelDelay.swf"
+			}
+		}
+	],
+	"parameters": {
+		"backgroundColor": "0x0"
+	},
+	"channel": {
+		"filters": [
+			{
+				"parameters": {
+					"muted": {
+						"value": false
+					},
+					"blurX": {
+						"value": 20
+					},
+					"quality": {
+						"value": 1
+					},
+					"blurY": {
+						"value": 20
+					},
+					"blendMode": {
+						"id": "Onyx.Display.Blend.Overlay::CPU",
+						"data": {
+							"id": "Onyx.Display.Blend.Overlay::CPU"
+						}
+					}
+				},
+				"id": "Onyx.Filter.Halo::CPU"
+			}
+		],
+		"id": "Onyx.Display.Channel::MIX"
+	}
+}

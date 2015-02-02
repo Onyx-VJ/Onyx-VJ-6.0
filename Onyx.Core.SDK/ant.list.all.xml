@@ -1,0 +1,38 @@
+<project default="list.all">
+
+	<target name="list.all">
+	
+		<property name="base.dir" location="src/" />
+		<property name="contrib.dir" location="./ant-contrib-0.6.jar" />
+		
+		<echo>${contrib.dir}</echo>
+		
+		<!-- ANT CONTRIB -->
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+			<classpath>
+				<pathelement location="${contrib.dir}"/>
+			</classpath>
+		</taskdef>
+	
+		<pathconvert property="plugin.build.files" pathsep="${line.separator}" dirsep=".">
+			<path>
+				<fileset dir="${base.dir}" includes="**/**.as"/>
+			</path>
+			<map from="${base.dir}/" to=""/>
+		</pathconvert>
+		
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.files"
+						input		= "${plugin.build.files}"
+						regexp		= "(.*)\.as"
+						replace		= "\1"
+						global		= "true"
+						override	= "true"
+		/>
+		
+		<!--replace		= "&lt;symbol&gt;\1&lt;/symbol&gt;"-->
+		<echo>${plugin.build.files}</echo>
+		
+	</target>
+	
+</project>

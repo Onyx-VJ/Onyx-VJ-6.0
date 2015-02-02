@@ -1,0 +1,179 @@
+<project name="build.module" default="build.release">
+
+	<property name="build.releaseMode"	value="release" />
+	<property name="build.failonerror"	value="true" />
+	<property name="build.root"			location="../../" />
+	<property name="build.output"		location="bin-release" />
+	
+	<property name="build.flexsdk"		location="C:\Program Files (x86)\Adobe\Adobe Flash Builder 4 Plug-in\sdks\4.5.0" />
+	<property name="build.config"		location="${build.root}\Onyx-VJ\config\release.xml" />
+	<property name="build.sdksrc"		location="${build.root}\Onyx.Core.SDK\src" />
+	<property name="build.coresrc"		location="${build.root}\Onyx.Core\src" />
+	<property name="build.pluginONX"	location="${build.root}\Onyx-VJ\bin\onyx\plugins" />
+	<property name="build.coreconfig"	location="${build.root}\Onyx-VJ\bin\onyx\core" />
+	<property name="build.uisrc"		location="${build.root}\Onyx.UI.Desktop\src" />
+	<property name="build.pluginsrc"	location="${build.root}\Onyx.Core.Plugins\src" />
+	<property name="build.uiconfig"		location="${build.root}\Onyx-VJ\bin\onyx\plugins\Onyx.UI.Desktop" />
+	<property name="build.mxmlc"		location="${build.flexsdk}\bin\mxmlc.exe" />
+	<property name="build.asdoc"		location="${build.flexsdk}\bin\aasdoc.bat" />
+	<property name="build.amxmlc"		location="${build.flexsdk}\bin\amxmlc.bat" />
+	<property name="build.compc"		location="${build.flexsdk}\bin\compc.exe" />
+	<property name="build.adt"			location="${build.flexsdk}\bin\adt.bat" />
+	<property name="build.sdk"			location="${build.output}/sdk" />
+	<property name="build.debugPath"	location="${build.root}\Onyx-VJ\bin" />
+	
+	<!-- RELEASE -->
+	<target name="build.release">
+		
+			<antcall target="build.swc" />
+			
+			<antcall target="build.core" />
+			<antcall target="build.plugins" />
+			<antcall target="build.ui" />
+			
+			<antcall target="copy.onx" />
+			<antcall target="copy.config" />
+			
+			<antcall target="build.application" />
+			<antcall target="build.air" />
+		
+		<!--
+			<antcall target="build.docs" />
+		-->
+		
+	</target>
+
+	
+	<!-- BUILD PLUGINS -->
+	<target name="copy.config">
+		<copy todir="${build.output}/onyx/data" includeEmptyDirs="false">
+			<fileset dir="${build.debugPath}/onyx/data">
+				<exclude name="**/*.jpg" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- BUILD APPLICATION -->
+	<target name="build.application">
+
+		<exec executable="${build.amxmlc}" failonerror="${build.failonerror}">
+			<arg line="-load-config='${build.flexsdk}\frameworks\air-config.xml'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="-source-path=${build.root}/Onyx.Application.AIR/src"/>
+			<arg line="-static-link-runtime-shared-libraries" />
+			<arg line="-library-path=${build.sdk}\Onyx.Core.SDK.swc"/>
+			<arg line="-load-externs=${build.sdk}\Onyx.Core.SDK.LinkReport.xml"/>
+			<arg line="-output ${build.output}/Onyx-VJ.swf" />
+			<arg line="${build.root}/Onyx.Application.AIR/src/OnyxVJ_AIRClient.as" />
+		</exec>
+		
+	</target>
+
+	<!-- BUILD APPLICATION -->
+	<target name="build.air">
+
+		<exec executable="${build.adt}" failonerror="${build.failonerror}" dir="${build.output}">
+			<arg line="-package" />
+			<arg line="-storetype pkcs12"/>
+			<arg line="-keystore ${build.root}/Onyx-VJ/build/certificate.p12"/>
+			<arg line="-storepass password" /> 
+			<arg line="-target native" />
+			<arg line="${build.output}/Onyx-VJ.exe ${build.output}/Onyx-VJ-app.xml ${build.output}/Onyx-VJ.swf" />
+			<arg line="${build.output}/icons ${build.output}/onyx ${build.output}/sdk ${build.output}/library"/> 
+		</exec>
+		
+	</target>
+
+	<!-- BUILD PLUGINS -->
+	<target name="build.core">
+
+		<mkdir dir="${build.output}/onyx/core" />
+
+		<exec executable="${build.mxmlc}" failonerror="${build.failonerror}">
+			<arg line="-load-config='${build.flexsdk}\frameworks\air-config.xml'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="-source-path=${build.coresrc}"/>
+			<arg line="-source-path=${build.sdksrc}"/>
+			<arg line="-static-link-runtime-shared-libraries" />
+			<arg line="-output ${build.output}/onyx/core/Onyx.Core.swf" />
+			<arg line="${build.coresrc}/OnyxCore.as" />
+		</exec>
+			
+		<copy file="${build.coreconfig}/Onyx.Core.conf" todir="${build.output}/onyx/core" />
+			
+		
+	</target>
+
+	<!-- BUILD PLUGINS -->
+	<target name="build.ui">
+
+		<mkdir dir="${build.output}/onyx/core" />
+
+		<exec executable="${build.mxmlc}" failonerror="${build.failonerror}">
+			<arg line="-load-config='${build.flexsdk}\frameworks\air-config.xml'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="-source-path=${build.pluginsrc}"/>
+			<arg line="-static-link-runtime-shared-libraries" />
+			<arg line="-output ${build.output}/onyx/plugins/Onyx.UI.Desktop/Onyx.UI.Desktop.swf" />
+			<arg line="-library-path=${build.sdk}\Onyx.Core.SDK.swc"/>
+			<arg line="-load-externs=${build.sdk}\Onyx.Core.SDK.LinkReport.xml"/>
+			<arg line="${build.uisrc}/OnyxUIDesktop.as" />
+		</exec>
+
+		<copy file="${build.uiconfig}/Onyx.UI.Desktop.conf" todir="${build.output}/onyx/plugins/Onyx.UI.Desktop" />
+		
+	</target>
+	
+	<!-- BUILD PLUGINS -->
+	<target name="build.plugins">
+
+	    <subant failonerror="true" verbose="true">
+	    	<property name="plugin.build.lib"		value="${build.sdk}/Onyx.Core.SDK" />
+	    	<property name="plugin.build.config"	value="${build.releaseMode}" />
+	    	<property name="plugin.build.target"	value="${build.output}/onyx/plugins" />
+	        <fileset file="${build.root}/Onyx.Core.Plugins/ant.build.plugins.all.release.xml"/>
+	    	<target name="build.plugins.release" />
+	    </subant>
+
+	</target>
+
+	
+	<!-- BUILD PLUGINS -->
+	<target name="copy.onx">
+		
+		<copy todir="${build.output}/onyx/plugins">
+			<fileset dir="${build.pluginONX}">
+				<include name="**/*.onx" />
+			</fileset>
+		</copy>
+
+	</target>
+	
+	<!-- SWCS -->
+	<target name="build.swc">
+		
+		<mkdir dir="${build.output}/sdk" />
+
+		<exec executable="${build.compc}" failonerror="${build.failonerror}">
+			<arg line="-load-config='${build.flexsdk}\frameworks\air-config.xml'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="-include-sources=${build.sdksrc}"/>
+			<arg line="-static-link-runtime-shared-libraries" />
+			<arg line="-link-report ${build.output}/sdk/Onyx.Core.SDK.LinkReport.xml" />
+			<arg line="-output ${build.output}/sdk/Onyx.Core.SDK.swc" />
+		</exec>
+		
+	</target>
+
+	<!-- SWCS -->
+	<target name="build.docs">
+
+		<exec executable="${build.asdoc}" failonerror="${build.failonerror}">
+			<arg line="-templates-path=${basedir}/asdoc-template"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="-doc-sources=${build.sdksrc}"/>
+		</exec>
+		
+	</target>
+
+</project>

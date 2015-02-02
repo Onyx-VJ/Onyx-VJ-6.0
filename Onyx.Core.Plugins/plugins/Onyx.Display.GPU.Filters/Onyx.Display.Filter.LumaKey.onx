@@ -1,0 +1,61 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"Filter",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Luma Key NOT DONE",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Parameters.Fragment":	[
+
+		/* FC 0 */
+		{
+			"name":		"none",
+			"type":		"vec4",
+			"data":	[
+				0.30, 0.59, 0.11, 0.0
+			]
+		},
+		
+		/* FC 1 */
+		{
+			"name":		"luma",
+			"type":		"number",
+			"clamp":	"0,1",
+			"data":	[
+				0.5
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+
+tex ft0, v0, fs0 <2d,nearest,nomip>
+mul ft1, ft0, fc0						// convert to hls
+add ft2,	ft1.rgb,	ft1.g			// scaledColor.r + scaledColor.g + scaledColor.b;
+add ft3,	ft1.b,	ft2.r					// scaledColor.r + scaledColor.g + scaledColor.b;
+ste ft4, ft3.r, 
+
+
+[Plugin.Ignore]
+
+uniform sampler2D textureDest;
+uniform sampler2D textureSrc;
+uniform float luma;
+const vec4 grayScaleWeights = vec4(0.30, 0.59, 0.11, 0.0);
+void main( void )
+{
+    vec4 colorDest = texture2D(textureDest,gl_TexCoord[0].st);
+    vec4 colorSrc = texture2D(textureSrc,gl_TexCoord[0].st);
+    vec4 scaledColor = colorSrc * grayScaleWeights;
+    float luminance = scaledColor.r + scaledColor.g + scaledColor.b;
+    if (luminance  >= (1.0-luma)) {
+	 gl_FragColor  =  colorSrc;
+    } else {
+	 gl_FragColor  =  colorDest;
+    }
+};

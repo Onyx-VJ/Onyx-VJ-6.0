@@ -1,0 +1,32 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.Add::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Add",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* FC 0 */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip>
+tex ft1, v0, fs1 <2d,nearest,nomip>
+mul ft2, ft1.rgb, fc0.www			// pre-multiply the color values * alpha
+mul ft3, ft2.rgb, fc0.rgb			// now multiply the transformation 
+add oc, ft0, ft3

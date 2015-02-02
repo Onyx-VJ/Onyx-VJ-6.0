@@ -1,0 +1,320 @@
+<project name="build.includes">
+
+	<property file="${build.root}/lib/build.properties" />
+
+	<tstamp>
+		<format property="plugin.build.timestamp" pattern="yyyymmddHHmmss" />
+	</tstamp>
+
+	<!-- Converts the name of the ant file to the output name (i.e) Onyx.Public.CPU.Filters -->
+	<basename property="plugin.build.name" file="${ant.file}" suffix="xml" />
+
+	<!-- INCLUDE THE DEFAULT PROPERTIES FILE IF THERE IS ONE -->
+	<property file="${plugin.build.name}.properties" />
+	
+	<!-- DEFAULTS -->
+	<property name="plugin.flex.sdk"			location="C:\Program Files\Adobe\Adobe Flash Builder 4.7 (64 Bit)\eclipse\plugins\com.adobe.flash.compiler_4.7.0.349722\AIRSDK" />
+	<property name="plugin.flex.mxmlc"			location="${plugin.flex.sdk}/bin/mxmlc.bat" />
+	<property name="plugin.flex.compc"			location="${plugin.flex.sdk}/lib/compc.jar" />
+	<property name="plugin.flex.adt"			location="${plugin.flex.sdk}/lib/adt.jar" />
+	<property name="plugin.flex.adl"			location="${plugin.flex.sdk}/lib/adl.bat" />
+
+	<!-- WOO -->
+	<property name="plugin.build.target"		location="${build.root}/../Onyx-VJ/bin/onyx/plugins/" />
+	<property name="plugin.build.dataPath"		location="${build.root}/../Onyx-VJ/bin/onyx/data/${plugin.build.name}/" />
+	<property name="plugin.build.lib"			location="${build.root}/../Onyx-VJ/sdk/Onyx.Core.SDK" />
+	<property name="plugin.build.configPath"	location="${build.root}/../Onyx-VJ/config" />
+	<property name="plugin.build.extPath"		location="${build.root}/../Onyx-VJ/extensions" />
+	<property name="plugin.build.swc"			location="${plugin.build.lib}.swc" />
+	<property name="plugin.build.linkReport"	location="${plugin.build.lib}.LinkReport.xml" />
+	<property name="plugin.build.ver"			location="${plugin.build.lib}.version" />
+	<property name="plugin.build.src"			location="${build.root}/src/" />
+	<property name="plugin.build.baseconfig"	value="flex" />
+	<property name="plugin.build.config"		value="debug" />
+	
+	<!-- ANT CONTRIB -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${build.root}/build/ant-contrib-0.6.jar"/>
+		</classpath>
+	</taskdef>
+	
+	<!-- THIS SCANS A FOLDER FOR ALL .AS files -->
+	<target name="scan.plugins">
+	
+		<pathconvert property="plugin.build.files" pathsep=";" dirsep="/">
+			<path>
+				<fileset dir="${basedir}" includes="*.as"/>
+			</path>
+	        <map from="${build.root}/src/" to="" />
+		</pathconvert>
+
+		<pathconvert property="plugin.build.import" pathsep=";${line.separator}" dirsep=".">
+			<path>
+				<pathelement location="${basedir}.*"/>
+			</path>
+	        <map from="${build.root}/src/" to="" />
+		</pathconvert>
+	
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.qualifiedClassNames"
+						input		= "${plugin.build.files}"
+						regexp		= "([^\.]*)\/([^\.]*)\/([^\.]*)\/([^\.]*)\.as"
+						replace		= "\1.\2.\3::\4"
+						global		= "true"
+						override	= "true"
+		/>
+
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.qualifiedClassPaths"
+						input		= "${plugin.build.qualifiedClassNames}"
+						regexp		= "::"
+						replace		= "."
+						global		= "true"
+						override	= "true"
+		/>
+	</target>
+
+	<!-- Creates a plugin manifest file: EXPECTS EVERYTHING TO BE 4 LEVELS DEEP! -->
+	<target name="build.plugins">
+
+		<property name="plugin.build.temp"			location="${build.root}/build/temp" />
+		<property name="plugin.build.templatePath"	location="${build.root}/build/manifest/OnyxPluginManifest.as" />
+		
+		<!-- LOAD SDK VERSION -->
+		<property file="${plugin.build.ver}" />
+		
+		<!-- WHERE IS THE TEMPLATE! -->
+		<property name="plugin.build.templatePath"	location="${plugin.build.temp}/${plugin.build.name}" />
+		
+		<!-- copy the manifest -->
+		<antcall target="build.plugins.buildManifest"/>
+		
+	</target>
+	
+	<!-- build manifest -->
+	<target name="build.plugins.buildManifest">
+
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.import"
+						input		= "${plugin.build.qualifiedClassNames}"
+						regexp		= "(.*?)::([^;]*);"
+						replace		= "import \1.\2;"
+						global		= "true"
+						override	= "false"
+		/>
+
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.qualifiedClassPaths"
+						input		= "${plugin.build.qualifiedClassNames}"
+						regexp		= "::"
+						replace		= "."
+						global		= "true"
+						override	= "false"
+		/>
+
+		<property name="plugin.build.import" value="" />
+		<property name="plugin.build.externs" value="" />
+
+		<!-- replace filenames with fully qualified names -->
+		<property name="plugin.build.includesPkg" value="" />
+		<propertyregex	property	= "plugin.build.includesPkg"
+						input		= "${plugin.build.includes}"
+						regexp		= "::"
+						replace		= "."
+						global		= "true"
+						override	= "true"
+		/>
+		
+		<!-- replace filenames with fully qualified names -->
+		<propertyregex	property	= "plugin.build.fileName"
+						input		= "${plugin.build.name}"
+						regexp		= "\."
+						replace		= ""
+						global		= "true"
+						override	= "true" />
+		
+		
+		<property name="plugin.build.includes"	value="" />
+		<property name="temp.plugin.name"		value="${plugin.build.fileName}${plugin.build.timestamp}" />
+		<property name="temp.plugin.file"		location="${plugin.build.temp}/${temp.plugin.name}.as" />
+		
+		<!-- Copy the file -->
+		<copy file="${plugin.build.templatePath}" tofile="${temp.plugin.file}" />
+		
+		<!-- replace vars in the template -->
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.CLASSNAME%"		replace="${temp.plugin.name}" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.INCLUDES%"		replace="${plugin.build.includesPkg}" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.IMPORTS%"		replace="${plugin.build.import};" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.CLASSES%"		replace="${plugin.build.qualifiedClassPaths}" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.MANIFEST%"		replace="${plugin.build.qualifiedClassNames}" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.SDK.VERSION%"	replace="${Onyx.Core.SDK.version}" />
+		<replaceregexp file="${temp.plugin.file}"	match="%PLUGIN.TIMESTAMP%"		replace="${plugin.build.timestamp}" />
+		
+		<echo>${plugin.flex.mxmlc}</echo>
+		<echo>${plugin.flex.sdk}/frameworks/${plugin.build.baseconfig}-config.xml</echo>
+
+		<echo>${plugin.build.swc}</echo>
+		<echo>${plugin.build.qualifiedClassPaths}</echo>
+		<echo>${plugin.build.externs}</echo>
+		
+		<echoxml>
+		<exec executable="${plugin.flex.mxmlc}" failonerror="true">
+			<arg line="-load-config='${plugin.flex.sdk}/frameworks/${plugin.build.baseconfig}-config.xml'"/>
+			<arg line="-load-config+='${plugin.build.configPath}/${plugin.build.config}.xml'"/>
+			<arg line="--source-path='${build.root}/src/'"/>
+			<arg line="--static-link-runtime-shared-libraries" />
+			<arg line="-library-path='${plugin.build.swc}'"/>
+			<arg line="-load-externs='${plugin.build.linkReport}'"/>
+			<arg line="-externs ${plugin.build.externs}"/>
+			<arg line="-link-report='${plugin.build.temp}/${plugin.build.name}.LinkReport.xml'"/>
+			<arg line="-output='${plugin.build.target}/${plugin.build.name}/${plugin.build.name}.swf'"/>
+			<arg line="'${temp.plugin.file}'"/>
+		</exec>
+		</echoxml>
+
+		<!-- delete -->
+		<delete file="${temp.plugin.file}" />
+		
+		<!-- copy config? if it exists? -->
+		<if>
+	        <available file="${plugin.build.name}.conf"/>
+	        <then>
+	        	<copy file="${plugin.build.name}.conf" todir="${plugin.build.target}/${plugin.build.name}" />
+	        </then>
+	    </if>
+
+		<!-- is there a data directory? -->
+		<if>
+	        <available file="data"/>
+	        <then>
+	        	<copy todir="${plugin.build.dataPath}">
+	        		<fileset dir="data">
+	        			<include name="**/*.*" />
+	        		</fileset>
+	        	</copy>
+	        </then>
+	    </if>
+
+	</target>
+	
+	<!-- build patch -->
+	<target name="build.patch">
+		
+		<exec executable="${plugin.flex.mxmlc}" failonerror="true">
+			<arg line="-load-config+='${plugin.build.configPath}/${plugin.build.config}.xml'"/>
+			<arg line="--source-path='${build.root}/src/'"/>
+			<arg line="--static-link-runtime-shared-libraries" />
+			<arg line="-library-path='${plugin.build.swc}'"/>
+			<arg line="-load-externs='${plugin.build.linkReport}'"/>
+			<arg line="-output='${plugin.build.target}/library/patches/${plugin.build.name}.swf'"/>
+			<arg line="'${plugin.build.src}/${plugin.class}.as'"/>
+		</exec>
+
+	</target>
+
+	<!-- build! -->
+	<target name="build.certicate">
+
+		<property name="plugin.build.target"	location="./certificate.p12" />
+		<property name="plugin.build.passwd"	location="password" />
+		<property name="plugin.build.vendor"	location="Daniel Hai" />
+
+		<exec executable="${plugin.flex.adt}">
+			<arg line="-certificate"/>
+			<arg line="-cn '${plugin.build.vendor}'"/>
+			<arg line="1024-RSA ${plugin.build.target} ${plugin.build.passwd}"/>
+		</exec>
+		
+	</target>
+
+	<!-- build! -->
+	<target name="build.extension" depends="build.extension.swc">
+
+		<property name="plugin.build.extensionPath"		location="${build.root}/extension-src/${plugin.build.name}" />
+		<property name="plugin.build.extensionPath"		location="${build.root}/extension-src/${plugin.build.name}" />
+		<property name="plugin.build.temp"				location="${build.root}/extension-src/${plugin.build.name}/build" />
+		<property name="plugin.build.keyPass"			value="password" />
+		
+	</target>
+	
+	<target name="build.extension.swc">
+
+		<property name="plugin.build.extensionPath"		location="${build.root}/extension-src/${plugin.build.name}" />
+		<property name="plugin.build.temp"				location="${build.root}/extension-src/${plugin.build.name}/lib" />
+		<property name="plugin.extension.keyPass"		value="password" />
+
+		<!-- compile the swc, and unzip it -->
+		<java jar="${plugin.flex.compc}" fork="true" failonerror="true">
+			<arg value="+flexlib=${plugin.flex.sdk}/frameworks"/>
+			<arg value="+configname=air"/>
+			<arg value="-source-path"/>
+			<arg value="${plugin.build.extensionPath}/src"/>
+			<arg value="-include-classes"/>
+			<arg value="${plugin.build.extensionClass}"/>
+			<arg value="-external-library-path"/>
+			<arg value="${plugin.flex.sdk}/frameworks/libs/air/airglobal.swc"/>
+			<arg value="-output"/>
+			<arg value="${plugin.build.extPath}/${plugin.build.name}.swc"/>
+		</java>
+		
+		<echo>unpackaging: ${plugin.build.temp}/${plugin.build.name}.swc</echo>
+		
+		<!-- unzip to swc -->
+		<unzip src="${plugin.build.extPath}/${plugin.build.name}.swc" dest="${plugin.build.temp}" />
+
+		<pathconvert property="plugin.build.extensionList" pathsep="' '" dirsep="/">
+			<path>
+				<fileset dir="${plugin.build.extensionPath}/lib" includes="**/*.dll"/>
+			</path>
+			<chainedmapper>
+				<flattenmapper/>
+			</chainedmapper>
+		</pathconvert>
+
+		<!-- unzip to swc -->
+		<java jar="${plugin.flex.adt}" fork="true" dir="${plugin.build.temp}" failonerror="true">
+		 	<arg value="-package"/>
+			<arg value="-keystore"/>
+		 	<arg value="${plugin.build.extensionPath}/lib/extension.p12"/>
+		 	<arg value="-storetype"/>
+		 	<arg value="pkcs12"/>
+		 	<arg value="-storepass"/>
+		 	<arg value="${plugin.extension.keyPass}"/>
+		 	<arg value="-tsa"/>
+		 	<arg value="none"/>
+		 	<arg value="-target"/>
+		 	<arg value="ane"/>
+		 	<arg value="${plugin.build.extPath}/${plugin.build.name}.ane"/>
+		 	<arg value="${plugin.build.extensionPath}/lib/extension.xml"/>
+		 	<arg value="-swc"/>
+		 	<arg value="${plugin.build.extPath}/${plugin.build.name}.swc"/>
+		 	<arg value="-platform"/>
+		 	<arg value="Windows-x86"/>
+		 	<arg value="${plugin.build.temp}/library.swf"/>
+		 	<arg line="'${plugin.build.extensionList}'" />
+		 </java>
+		
+		<!-- unpackage -->
+		<!--<unzip src="${build.root}/extensions/${plugin.build.name}.swc" dest="${build.root}/extensions/${plugin.build.name}.ane" />-->
+		
+		<!-- delete temporaries -->
+		<!--<delete file="${plugin.build.temp}/${plugin.build.name}.swc" />-->
+		<delete file="${plugin.build.temp}/catalog.xml" />
+		<delete file="${plugin.build.temp}/library.swf" />
+		
+	</target>
+	
+	<target name="build.launch">
+		
+		<property name="plugin.target.descriptor" location=""/>
+		<property name="plugin.target" location=""/>
+			
+		<exec executable="${plugin.flex.adl}">
+			<arg value="${plugin.target.descriptor}"/>
+			<arg value="-extdir"/>
+			<arg value="${NATIVE_EXTENSION_UNZIPPED_DIR}" />
+			<arg value="${debug}"/>
+		</exec> 
+	</target>
+</project>

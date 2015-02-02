@@ -1,0 +1,34 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.LinearLight::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Linear Light",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* color transform */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip>
+tex ft1, v0, fs1 <2d,nearest,nomip>
+mul ft2, ft1.rgb, fc0.www
+mul ft1, ft2.rgb, fc0.rgb
+sub ft3, ft0, fc0
+add ft4, ft3, ft1
+add oc, ft4, ft1

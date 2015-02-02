@@ -1,0 +1,35 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.Exclusion::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Exclusion",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* FC 0 */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip>
+tex ft1, v0, fs1 <2d,nearest,nomip>
+mul ft2, ft1.rgb, fc0.www
+mul ft1, ft2.rgb, fc0.rgb
+mul ft3, ft1, ft0
+add ft4, ft3, ft3
+sub ft5, ft1, ft4
+add oc, ft5, ft0

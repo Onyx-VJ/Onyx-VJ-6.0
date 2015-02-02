@@ -1,0 +1,103 @@
+{
+	"channel": {
+		"id": "Onyx.Display.Channel::MIX"
+	},
+	"parameters": {
+		"backgroundColor": "0x0"
+	},
+	"layers": [
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb010",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0.07986035348025311
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::CPU"
+					}
+				}
+			},
+			"generator": {
+				"parameters": {
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": 0
+						},
+						"ty": {
+							"value": 0
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1
+						},
+						"d": {
+							"value": 1
+						}
+					}
+				},
+				"path": "/library/onyx/Anatomy.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		}
+	]
+}

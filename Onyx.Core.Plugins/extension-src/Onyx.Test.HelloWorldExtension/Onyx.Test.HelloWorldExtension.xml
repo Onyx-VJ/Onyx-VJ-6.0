@@ -1,0 +1,9 @@
+<project name="build.module" default="build.extension">
+
+	<property name="build.root" location="../../" />
+	
+	<property name="plugin.build.extensionClass" value="onyx.extension.HelloWorldExtension" />
+	
+	<import file="${build.root}/build/ant.build.include.xml" />
+
+</project>

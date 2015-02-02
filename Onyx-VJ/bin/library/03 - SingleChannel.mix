@@ -1,0 +1,181 @@
+{
+	"channel": {
+		"id": "Onyx.Display.Channel::MIX"
+	},
+	"parameters": {
+		"backgroundColor": "0x0"
+	},
+	"layers": [
+		{
+			"generator": {
+				"parameters": {
+					"streamName": {
+						"value": "livestream"
+					},
+					"connect": {
+						
+					},
+					"host": {
+						"value": "rtmp://localhost/live"
+					}
+				},
+				"path": "/library/patches/RTMPatch.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		},
+		{
+			"generator": {
+				"parameters": {
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": -0.07812205896587235
+						},
+						"ty": {
+							"value": -0.07869445968728417
+						}
+					},
+					"targetChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 1.2429073978070373
+						},
+						"d": {
+							"value": 1.2429073978070373
+						}
+					}
+				},
+				"path": "/library/patches/ChannelCopy.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		},
+		{
+			"generator": {
+				"parameters": {
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": -0.323870418383726
+						},
+						"ty": {
+							"value": -0.27292051840031617
+						}
+					},
+					"targetChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 2.081930891761242
+						},
+						"d": {
+							"value": 2.081930891761242
+						}
+					}
+				},
+				"path": "/library/patches/ChannelCopy.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		},
+		{
+			"generator": {
+				"parameters": {
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": 0.10264578947654077
+						},
+						"ty": {
+							"value": -0.3513387021749162
+						}
+					},
+					"targetChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 2.0733647546694938
+						},
+						"d": {
+							"value": 2.0733647546694938
+						}
+					}
+				},
+				"path": "/library/patches/ChannelCopy.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		},
+		{
+			"generator": {
+				"parameters": {
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": 0.22373191859303235
+						},
+						"ty": {
+							"value": 0.10057731577929707
+						}
+					},
+					"targetChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 1.148683215986165
+						},
+						"d": {
+							"value": 1.148683215986165
+						}
+					}
+				},
+				"path": "/library/patches/ChannelCopy.swf"
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			}
+		}
+	]
+}

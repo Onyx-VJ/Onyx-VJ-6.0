@@ -1,0 +1,8 @@
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip>
+tex ft1, v0, fs1 <2d,nearest,nomip>
+add oc, ft0, ft1

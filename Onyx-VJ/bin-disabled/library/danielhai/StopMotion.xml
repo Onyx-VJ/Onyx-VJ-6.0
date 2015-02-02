@@ -1,0 +1,31 @@
+<report>
+  <scripts>
+    <script name="D:\Projects\Onyx-VJ\Onyx.Core.Plugins\src\flash\com\danielhai\StopMotion.as" mod="1333570511886" size="1904" optimizedsize="1166">
+      <def id="com.danielhai:StopMotion" />
+      <pre id="onyx.plugin:PluginPatch" />
+      <dep id="onyx.core:IDisplayContext" />
+      <dep id="flash.text:AntiAliasType" />
+      <dep id="flash.text:TextFieldAutoSize" />
+      <dep id="onyx.core:IDisplaySurface" />
+      <dep id="flash.text:TextFormat" />
+      <dep id="AS3" />
+      <dep id="flash.text:TextField" />
+      <dep id="onyx.core:parameter" />
+      <dep id="onyx.core:IDisplayLayer" />
+      <dep id="onyx.plugin:PluginStatus" />
+    </script>
+  </scripts>
+  <external-defs>
+    <ext id="onyx.core:IDisplaySurface" />
+    <ext id="AS3" />
+    <ext id="onyx.plugin:PluginPatch" />
+    <ext id="flash.text:AntiAliasType" />
+    <ext id="flash.text:TextFieldAutoSize" />
+    <ext id="onyx.core:parameter" />
+    <ext id="onyx.plugin:PluginStatus" />
+    <ext id="flash.text:TextField" />
+    <ext id="onyx.core:IDisplayLayer" />
+    <ext id="flash.text:TextFormat" />
+    <ext id="onyx.core:IDisplayContext" />
+  </external-defs>
+</report>

@@ -1,0 +1,13 @@
+<extension xmlns="http://ns.adobe.com/air/extension/3.2">
+    <id>onyx.extension.OpenGLExtension</id>
+    <versionNumber>1.0.0</versionNumber>
+    <platforms>
+        <platform name="Windows-x86">
+            <applicationDeployment>
+                <nativeLibrary>OpenGLExtension.dll</nativeLibrary>
+                <initializer>ExtInitializer</initializer>
+                <finalizer>ExtFinalizer</finalizer>
+            </applicationDeployment>
+        </platform>
+    </platforms>
+</extension>

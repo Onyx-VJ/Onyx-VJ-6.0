@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="onyx.display.DisplayChannelBase"/>
+    <classEntry path="onyx.display.DisplayLayerRenderModeCPU"/>
+    <classEntry path="onyx.ui.window.layer.UIChannelType"/>
+    <classEntry path="onyx.ui.window.layer.UIFilterListItem"/>
+    <classEntry path="onyx.display.ILayerRenderMode"/>
+    <classEntry path="onyx.filter.cpu.CPUFlipFilter"/>
+    <classEntry path="onyx.patch.cpu.GPUSpriteRecorder"/>
+    <classEntry path="com.danielhai.gpu.GPUSpriteBuffer"/>
+    <classEntry path="onyx.patch.cpu.LoopMachine"/>
+    <classEntry path="onyx.ui.component.UITabNavigator"/>
+    <classEntry path="onyx.ui.component.UITab"/>
+    <classEntry path="onyx.module.midi.IMidiBinding"/>
+    <classEntry path="onyx.module.midi.MidiNumericBinding"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

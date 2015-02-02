@@ -1,0 +1,59 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.Hardlight::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Hardlight",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* FC 0 */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		},
+		
+		/* FC 1 */
+		{
+			"type":		"float4",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		},
+		
+		/* FC 2 */
+		{
+			"type":		"float4",
+			"data":	[
+				0.5, 0.5, 0.5, 0.5
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs1 <2d,nomip,nearest>
+tex ft1, v0, fs0 <2d,nomip,nearest>
+mul ft2, ft1.rgb, fc0.www
+mul ft1, ft2.rgb, fc0.rgb
+sub ft3.rgb, fc1.r, ft1.rgb
+sub ft6.rgb, fc1.r, ft0.rgb
+mul ft3.rgb, ft3.rgb, ft6.rgb
+add ft3.rgb, ft3.rgb, ft3.rgb
+sub ft3.rgb, fc1.r, ft3.rgb
+mul ft4.rgb, ft1.rgb, ft0.rgb
+add ft4.rgb, ft4.rgb, ft4.rgb
+sge ft6.rgb, ft0.rgb, fc2.r
+slt ft5, ft0.rgb, fc2.r
+mul ft6.rgb, ft6.rgb, ft3.rgb
+mul ft5, ft5, ft4.rgb
+add oc, ft6.rgb, ft5.rgb

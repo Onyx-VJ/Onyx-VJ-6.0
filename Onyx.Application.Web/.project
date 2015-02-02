@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Onyx.Application.Web</name>
+	<comment></comment>
+	<projects>
+		<project>Onyx.Application.AIR</project>
+		<project>Onyx.Core.Plugins</project>
+		<project>Onyx.Core.SDK</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] Onyx.Application.AIR-src</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/Onyx.Application.AIR/src</locationURI>
+		</link>
+		<link>
+			<name>[source path] Onyx.Core.SDK-src</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/Onyx.Core.SDK/src</locationURI>
+		</link>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/Onyx-VJ/bin</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

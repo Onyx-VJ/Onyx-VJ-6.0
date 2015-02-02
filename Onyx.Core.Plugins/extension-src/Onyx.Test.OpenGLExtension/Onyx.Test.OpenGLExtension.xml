@@ -1,0 +1,11 @@
+<project name="build.module" default="build.extension">
+
+	<property name="build.root" location="../../" />
+	<property name="plugin.build.extensionClass" value="onyx.extension.OpenGLExtension" />
+	<property name="plugin.build.nativeLibPath"	location="D:\Projects\Onyx-VJ\Onyx-VJ-Extensions\OpenGLExtension\Debug\" />
+	
+	<copy file="${plugin.build.nativeLibPath}/OpenGLExtension.dll" todir="D:\Projects\Onyx-VJ\Onyx-VJ-Private\Onyx.Core.Plugins\extension-src\Onyx.Test.OpenGLExtension\lib" />
+
+	<import file="${build.root}/build/ant.build.include.xml" />
+
+</project>

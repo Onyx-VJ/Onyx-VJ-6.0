@@ -1,0 +1,41 @@
+<languageVersion : 1.0;>
+
+kernel DifferenceKey
+    <   
+        namespace:      "com.quasimondo.onyx";
+        vendor:         "Quasimondo";
+        version:        1;
+        description:    "A simple difference key for chroma keying";
+        name:           "DifferenceKey";
+        type:           "Onyx.Filter";
+    >
+{
+
+    input image4 src;
+    output pixel4 dst;
+    
+    parameter float3 keyColor <
+        display:        "color";
+        defaultValue:   float3(0.32941176470588235, 0.7372549019607844, 0.38823529411764707);
+    >;
+    
+    parameter float3 tolerance <
+        defaultValue: float3(0.1, 0.1, 0.1);
+    >;
+    
+    parameter float ramp <
+        minValue: 0.0;
+        maxValue: 1.0;
+        defaultValue: 0.005;
+    >;
+    
+    void evaluatePixel()
+    {
+        dst         = sampleNearest(src, outCoord());
+        float3 diff = dst.rgb - keyColor;
+        if (abs(diff.g) < tolerance.g && abs(diff.r) < tolerance.r && abs(diff.b) < tolerance.b)
+        {
+            dst.a = 0.0;
+        }
+    }
+}

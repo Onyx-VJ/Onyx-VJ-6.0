@@ -1,0 +1,635 @@
+{
+	"layers": [
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": false
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::CPU"
+					}
+				}
+			},
+			"channel": {
+				"filters": [
+					{
+						"parameters": {
+							"hue": {
+								"value": 0
+							},
+							"contrast": {
+								"value": 2
+							},
+							"threshold": {
+								"value": 0
+							},
+							"muted": {
+								"value": false
+							},
+							"brightness": {
+								"value": 0.4933333333333333
+							},
+							"saturation": {
+								"value": 0
+							}
+						},
+						"id": "Onyx.Filter.ColorFilter::CPU"
+					}
+				],
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"streamName": {
+						"value": "livestream"
+					},
+					"connect": {
+						
+					},
+					"host": {
+						"value": "rtmp://localhost/live"
+					}
+				},
+				"path": "/library/daniel.hai/RTMPatch.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb010",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": true
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Add::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Add::CPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"translate": {
+						"tx": {
+							"value": 0.0000010426629433482222
+						},
+						"ty": {
+							"value": -6.305089578225888e-7
+						}
+					},
+					"delay": {
+						"value": 18
+					},
+					"rotation": {
+						"value": 0
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"boundChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 0.9999873108723445
+						},
+						"d": {
+							"value": 0.9999873108723445
+						}
+					}
+				},
+				"path": "/library/daniel.hai/SingleChannelDelay.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb011",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": false
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Add::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Add::CPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"translate": {
+						"tx": {
+							"value": -0.0000034761490962752347
+						},
+						"ty": {
+							"value": -0.0000030689088219791854
+						}
+					},
+					"delay": {
+						"value": 10
+					},
+					"rotation": {
+						"value": -2
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"boundChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 0.9999971768185097
+						},
+						"d": {
+							"value": 0.9999971768185097
+						}
+					}
+				},
+				"path": "/library/daniel.hai/SingleChannelDelay.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": false
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Subtract::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Subtract::CPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"translate": {
+						"tx": {
+							"value": -5.861195911766062e-7
+						},
+						"ty": {
+							"value": 0.0000017182331931685642
+						}
+					},
+					"delay": {
+						"value": 15
+					},
+					"rotation": {
+						"value": -2
+					},
+					"anchor": {
+						"y": {
+							"value": 0.5
+						},
+						"x": {
+							"value": 0.5
+						}
+					},
+					"boundChannel": "Layer: 0",
+					"scale": {
+						"a": {
+							"value": 0.9999875770222462
+						},
+						"d": {
+							"value": 0.9999875770222462
+						}
+					}
+				},
+				"path": "/library/daniel.hai/SingleChannelDelay.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": -1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Bounce",
+					"data": {
+						"id": "Onyx.PlayMode.Bounce"
+					}
+				},
+				"time": {
+					"value": 0.612735326688815
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": true
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Difference::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.Difference::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"stop": {
+						
+					},
+					"start": {
+						"binding": {
+							"key": "0x56",
+							"id": "Onyx.Interface.Keyboard"
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": 8.203019847079942e-7
+						},
+						"ty": {
+							"value": 0.0000026660779662813713
+						}
+					},
+					"rotation": {
+						"value": 0
+					},
+					"maxFrames": {
+						"value": 300
+					},
+					"skipFrames": {
+						"value": 2
+					},
+					"clear": {
+						
+					},
+					"targetChannel": "Display: 0",
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 0.999992608957587
+						},
+						"d": {
+							"value": 0.999992608957587
+						}
+					}
+				},
+				"path": "/library/daniel.hai/StopMotion.swf"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.Difference::GPU"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playDirection": {
+					"value": -1
+				},
+				"type": {
+					"value": 0
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"playStart": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Bounce",
+					"data": {
+						"id": "Onyx.PlayMode.Bounce"
+					}
+				},
+				"time": {
+					"value": 0.33853820598006645
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"visible": {
+					"value": true
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Difference::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.Difference::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"stop": {
+						
+					},
+					"start": {
+						"binding": {
+							"key": "0x56",
+							"id": "Onyx.Interface.Keyboard"
+						}
+					},
+					"translate": {
+						"tx": {
+							"value": -0.000003032061449404356
+						},
+						"ty": {
+							"value": 0.0000025126438112123284
+						}
+					},
+					"rotation": {
+						"value": -2
+					},
+					"maxFrames": {
+						"value": 300
+					},
+					"skipFrames": {
+						"value": 2
+					},
+					"clear": {
+						
+					},
+					"targetChannel": "Display: 0",
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 0.9999912208366205
+						},
+						"d": {
+							"value": 0.9999912208366205
+						}
+					}
+				},
+				"path": "/library/daniel.hai/StopMotion.swf"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.Difference::GPU"
+			}
+		}
+	],
+	"parameters": {
+		"backgroundColor": "0x0"
+	},
+	"channel": {
+		"id": "Onyx.Display.Channel::MIX"
+	}
+}

@@ -1,0 +1,229 @@
+<project name="build.includes">
+	
+	<property name="build.releaseMode"		value="debug" />
+	<property name="build.failonerror"		value="true" />
+	<property name="build.linker"			value="true" />
+	
+	<!-- DEFAULT PATHS -->
+	<property name="build.root"			location="../../" />
+	
+	<property name="build.flexsdk"		location="C:\Program Files (x86)\Adobe\Adobe Flash Builder 4 Plug-in\sdks\4.5.0" />
+	<property name="build.baseconfig"	location="${build.flexsdk}\frameworks" />
+	<property name="build.exec"			location="${build.flexsdk}\bin\mxmlc.exe" />
+	<property name="build.compc"		location="${build.flexsdk}\bin\compc.exe" />
+	<property name="build.adt"			location="${build.flexsdk}\bin\adt.bat" />
+	<property name="build.dir"			location="${build.root}/../../../Onyx-VJ/bin" />
+	<property name="build.config"		location="${build.root}/lib/config/${build.releaseMode}.xml" />
+	<property name="build.sdk"			location="${build.root}/../../../Onyx-VJ/sdk" />
+
+	<!-- ANT CONTRIB -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${build.root}/lib/ant-contrib-0.6.jar"/>
+		</classpath>
+	</taskdef>
+
+	<!-- build! -->
+	<target name="build.plugin">
+		
+		<property name="build.src"				location="${build.root}/../flash" />
+		<property name="plugin.imports"			value="" />
+		<property name="plugin.classes"			value="" />
+		<property name="plugin.include"			value="" />
+		<property name="plugin.target"			value="/onyx/plugins" />
+		<property name="plugin.baseconfig"		value="flex-config.xml" />
+		<property name="plugin.createLibrary"	value="false" />
+		
+		<tstamp>
+			<format property="build.time" pattern="mmddyyyyhhmmss" />
+		</tstamp>
+
+		<!-- FILE INFORMATION (don't change) -->
+		
+		<basename		property="build.pluginName"	file="${ant.file}" suffix="xml" />
+		<propertyregex	property="build.pluginClassName"
+						input="${build.pluginName}"
+						regexp="\."
+						replace=""
+						global="true"
+		/>
+
+		<property name="onyx.build.tempdir"		location="${build.root}/.temp/${build.time}" />
+		<property name="build.temp"			location="${build.tempdir}/Template.as" />
+		<property name="build.target"		location="${build.tempdir}/${build.pluginClassName}.as" />
+		<property name="build.linkReport"	value="--link-report=${build.dir}${plugin.target}/${build.pluginName}.xml"/>
+		
+		<echo>building ${build.target}</echo>
+		<echo>building ${plugin.classes}</echo>
+		
+		<!-- create temp -->
+		<copy todir="${build.tempdir}">
+			<fileset dir="${build.root}/lib/template" />
+		</copy>
+
+		<!-- replace ;'s with ,'s -->
+		<propertyregex	property	= "plugin.include"
+						input		= "${plugin.include}"
+						regexp		= "\:\:"
+						replace		= "."
+						global		= "true"
+						override	= "true" />
+		
+		<!-- replace ;'s with ,'s -->
+		<propertyregex	property	= "plugin.allclasses"
+						input		= "${plugin.classes}"
+						regexp		= "\:\:"
+						replace		= "."
+						global		= "true" />
+	
+		<!-- replace vars in the template -->
+		<replaceregexp file="${build.temp}"	match="%CLASSNAME%"	replace="${build.pluginClassName}" />
+		<replaceregexp file="${build.temp}"	match="%INCLUDES%"	replace="${plugin.include}" />
+		<replaceregexp file="${build.temp}"	match="%IMPORTS%"	replace="${plugin.imports}" />
+		<replaceregexp file="${build.temp}"	match="%PLUGINS%"	replace="${plugin.allclasses}" />
+		<replaceregexp file="${build.temp}"	match="%MANIFEST%"	replace="${plugin.classes}" />
+	
+		<!-- rename the template file to our output file -->
+		<move file="${build.temp}" tofile="${build.target}" />
+
+		<!-- execute -->
+		<exec executable="${build.exec}" failonerror="${build.failonerror}">
+			<arg line="--load-config='${build.baseconfig}\${plugin.baseconfig}'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="--source-path=${build.src}"/>
+			<arg line="--static-link-runtime-shared-libraries" />
+			<arg line="--library-path=${build.sdk}\Onyx.Core.SDK.swc"/>
+			<arg line="-load-externs=${build.sdk}\Onyx.Core.SDK.xml"/>
+			<arg line="${build.linkReport}" />
+			<arg line="--output ${build.dir}${plugin.target}/${build.pluginName}.swf"/>
+			<arg line="${build.target}"/>
+		</exec>
+		
+		<!-- DELETE TEMP -->
+		<delete includeEmptyDirs="true">
+			<fileset dir="${build.tempdir}"/>
+		</delete>
+		
+	</target>
+	
+	<!-- PATCH BUILDING -->
+	<target name="build.patch">
+		
+		<property name="plugin.imports"			value="" />
+		<property name="plugin.class"			value="" />
+		<property name="plugin.include"			value="" />
+		<property name="plugin.target"			value="/library/patches" />
+		<property name="plugin.baseconfig"		value="flex-config.xml" />
+		<property name="build.src"				location="${build.root}/../flash" />
+				
+		<tstamp>
+			<format property="build.time" pattern="mmddyyyyhhmmss" />
+		</tstamp>
+		
+		<basename property="build.pluginName" file="${ant.file}" suffix="xml" />
+
+		<echo>building ${build.src}/${plugin.class}</echo>
+	
+		<!-- execute -->
+		<exec executable="${build.exec}" fork="true" failonerror="${build.failonerror}">
+			<arg line="--load-config='${build.baseconfig}\${plugin.baseconfig}'"/>
+			<arg line="-load-config+=${build.config}"/>
+			<arg line="--source-path=${build.src}"/>
+			<arg line="--static-link-runtime-shared-libraries" />
+			<arg line="--library-path=${build.sdk}\Onyx.Core.SDK.swc"/>
+			<arg line="-load-externs=${build.sdk}\Onyx.Core.SDK.xml"/>
+			<arg line="--link-report=${build.dir}${plugin.target}/${build.pluginName}.xml"/>
+			<arg line="--output ${build.dir}${plugin.target}/${build.pluginName}.swf"/>
+			<arg line="${build.src}/${plugin.class}.as"/>
+		</exec>
+		
+	</target>
+	
+	<!-- build! -->
+	<target name="build.extension">
+
+		<basename property="build.pluginName" file="${ant.file}" suffix="xml" />
+		
+		<property name="build.extensionDir"	location="${build.root}/../extensions" />
+		<property name="build.target"		location="${build.extensionDir}/${build.pluginName}" />
+		
+		<echo>${build.target}</echo>
+		
+		<pathconvert property="plugin.extensions" pathsep="' '" dirsep="/">
+			<path>
+				<fileset dir="${build.target}" includes="**/*.dll"/>
+			</path>
+			<chainedmapper><flattenmapper/></chainedmapper>
+		</pathconvert>
+		
+		<echo>${plugin.extensions}</echo>
+
+		<!-- build the swc first -->
+		<exec executable="${build.compc}" failonerror="${build.failonerror}">
+			
+			<arg line="-source-path=${build.target}/src"/>
+			<!-- include the actionscript side of the code -->
+			
+			<arg line="-include-sources=${build.target}/src"/>
+
+			<!-- load air by default -->
+			<arg line="-load-config='${build.flexsdk}\frameworks\air-config.xml'"/>
+			
+			<!-- output -->
+			<arg line="-output ${build.target}/${build.pluginName}.swc"/>
+		</exec>
+
+		<unzip src="${build.target}/${build.pluginName}.swc" dest="${build.target}/lib" />
+		
+		<echo>
+			-package
+		 	-storetype pkcs12
+		 	-storepass password
+		 	-keystore ${build.target}/certificate.p12
+		 	-tsa none
+		 	-target ane ${build.pluginName}.ane ${build.target}/${build.pluginName}.xml
+			-swc ${build.pluginName}}.swc
+		 	-platform Windows-x86 ${build.target}/lib/library.swf
+		 	${plugin.extensions}
+		</echo>
+
+		<!-- build the swc first -->
+		<exec executable="${build.adt}" failonerror="${build.failonerror}">
+			<arg line="-package"/>
+		 	<arg line="-storetype pkcs12"/>
+		 	<arg line="-storepass password"/>
+		 	<arg line="-keystore ${build.target}/certificate.p12"/>
+		 	<arg line="-tsa none"/>
+		 	<arg line="-target ane ${build.pluginName}.ane ${build.target}/${build.pluginName}.xml"/>
+			<arg line="-swc ${build.pluginName}}.swc"/>
+		 	<arg line="-platform Windows-x86 ${build.target}/lib/library.swf"/>
+		 	<arg line="${build.target}/${plugin.extensions}" />
+		</exec>
+		
+
+		<!-- now build the ane 
+
+		 <java jar="${ADT.JAR}" fork="true" dir="${NATIVE_EXTENSION_TMP_DIR}" failonerror="true">
+		 	<arg value="-package"/>
+		 	<arg value="-storetype"/>
+		 	<arg value="pkcs12"/>
+		 	<arg value="-storepass"/>
+		 	<arg value="${STOREPASS}"/>
+		 	<arg value="-keystore"/>
+		 	<arg value="${KEYSTORE}"/>
+		 	<arg value="-tsa"/>
+		 	<arg value="none"/>
+		 	<arg value="-target"/>
+		 	<arg value="ane"/>
+		 	<arg value="${NATIVE_EXTENSION_NAME}.ane"/>
+		 	<arg value="extension.xml"/>
+		 	<arg value="-swc"/>
+		 	<arg value="nativeextensions.swc"/>
+		 	<arg value="-platform"/>
+		 	<arg value="Windows-x86"/>
+		 	<arg value="library.swf"/>
+		 	<arg line="'${nativeExtensionFiles}'" />
+		 </java>-->
+	</target>
+		
+</project>

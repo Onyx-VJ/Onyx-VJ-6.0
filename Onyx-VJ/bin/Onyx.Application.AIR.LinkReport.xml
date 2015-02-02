@@ -1,0 +1,37 @@
+<report>
+  <scripts>
+    <script name="D:\Projects\Onyx-VJ\Onyx-VJ-Private\Onyx.Application.AIR\src\OnyxVJ_AIRClient.as" mod="1348172561942" size="2240" optimizedsize="1639">
+      <def id="OnyxVJ_AIRClient" />
+      <pre id="flash.display:Sprite" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="flash.display:Loader" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="flash.desktop:NativeApplication" />
+      <dep id="Error" />
+      <dep id="flash.events:UncaughtErrorEvent" />
+      <dep id="AS3" />
+      <dep id="flash.system:LoaderContext" />
+      <dep id="flash.events:ErrorEvent" />
+    </script>
+  </scripts>
+  <external-defs>
+    <ext id="flash.system:ApplicationDomain" />
+    <ext id="AS3" />
+    <ext id="flash.events:IOErrorEvent" />
+    <ext id="Error" />
+    <ext id="flash.desktop:NativeApplication" />
+    <ext id="flash.events:UncaughtErrorEvent" />
+    <ext id="flash.events:Event" />
+    <ext id="flash.net:URLRequest" />
+    <ext id="flash.display:LoaderInfo" />
+    <ext id="flash.geom:Rectangle" />
+    <ext id="flash.events:ErrorEvent" />
+    <ext id="flash.display:Sprite" />
+    <ext id="flash.display:Loader" />
+    <ext id="flash.system:LoaderContext" />
+  </external-defs>
+</report>

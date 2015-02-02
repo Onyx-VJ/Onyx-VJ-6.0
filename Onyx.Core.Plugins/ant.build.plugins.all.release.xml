@@ -1,0 +1,28 @@
+<project	name="build.plugins.release"
+			default="build.plugins.release"
+>
+
+	<target name="build.plugins.release">
+		
+	    <subant failonerror="true" verbose="true">
+	        <fileset dir="plugins" includes="**/**.xml"/>
+	    	<property name="plugin.build.config"	value="release" />
+	    </subant>
+
+		<!-- build the public plugins -->
+	    <subant failonerror="true" verbose="true">
+	    	
+	        <fileset dir="../../Onyx-VJ-Public/Onyx.Public.Plugins/build/" includes="ant.build.all.release.xml"/>
+	        	
+	    	<property name="plugin.build.target"		location="../../Onyx-VJ-Private/Onyx-VJ/build/bin-release/" />
+	    	<property name="plugin.build.lib"			location="../../Onyx-VJ-Private/Onyx-VJ/build/bin-release/sdk/Onyx.Core.SDK" />
+	    	<property name="plugin.build.configPath"	location="../../Onyx-VJ-Private/Onyx-VJ/config" />
+	    	<property name="plugin.build.config"		value="release" />
+	    	
+	    	<target name="build.plugins.release" />
+
+	    </subant>
+		
+	</target>
+
+</project>

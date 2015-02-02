@@ -1,0 +1,39 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Render.Transform::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"Render",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"Core Renderer",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Parameters.Vertex":	[
+		{
+			"id":		"matrix",
+			"type":		"matrix4",
+			"data":	[
+				1.0, 0.0, 0.0, 0.0,
+				0.0, 1.0, 0.0, 0.0,
+				0.0, 0.0, 1.0, 0.0,
+				0.0, 0.0, 0.0, 1.0
+			]
+		}
+	],
+	"Plugin.Parameters.Fragment":	[
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+m44 op, va0, vc0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,linear,nomip>
+mul ft1, ft0.rgb, fc0.rgb
+mul oc,	ft1.rgb, fc0.www

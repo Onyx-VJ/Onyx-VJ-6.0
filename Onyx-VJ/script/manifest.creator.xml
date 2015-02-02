@@ -1,0 +1,19 @@
+<project name="manifest.creator"  default="build">
+
+	<property name="build.sdk" location="C:\Program Files (x86)\Adobe\Adobe Flash Builder 4 Plug-in\sdks\4.5.0" />
+	<property name="build.exec" location="${build.sdk}\bin\adl.exe" />
+
+	<target name="build">
+		
+		<!-- execute -->
+		<!--<arg line="-load-externs=${build.sdk}\Onyx.Core.SDK.xml"/>-->
+		<exec executable="${build.sdk}\bin\amxmlc.bat" failonerror="true">
+			<arg line="ManifestCreator.as"/>
+		</exec>
+
+		<exec executable="${build.exec}" failonerror="true">
+			<!--<arg line="-runtime ${build.sdk}" />-->
+			<arg line="ManifestCreator-app.xml" />
+		</exec>
+	</target>
+</project>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2005-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<flex-config>
+
+	<!-- Specifies the minimum player version that will run the compiled SWF. -->
+	<target-player>11.4.0</target-player>
+
+	<!-- Specifies the version of the compiled SWF -->
+	<swf-version>17</swf-version>
+
+	<compiler>
+	
+		<debug>false</debug>
+		<omit-trace-statements>true</omit-trace-statements>
+		<optimize>true</optimize>
+
+		<define>
+			<name>RENDER::LAYER_MIXED</name>
+			<value>true</value>
+		</define>
+		<define>
+			<name>RENDER::DISPLAY_MIXED</name>
+			<value>true</value>
+		</define>
+		<define>
+			<name>RENDER::DISPLAY_GPU</name>
+			<value>false</value>
+		</define>
+	
+		<define>
+			<name>CONFIG::DEBUG</name>
+			<value>false</value>
+		</define>
+		<define>
+			<name>CONFIG::RELEASE</name>
+			<value>true</value>
+		</define>
+		<define>
+			<name>CONFIG::GC</name>
+			<value>false</value>
+		</define>
+		
+		<define>
+			<name>CONSOLE::VERBOSE</name>
+			<value>0x00000000</value>
+		</define>
+		<define>
+			<name>CONSOLE::DEBUG</name>
+			<value>0x00000001</value>
+		</define>
+		<define>
+			<name>CONSOLE::INFO</name>
+			<value>0x00000002</value>
+		</define>
+		<define>
+			<name>CONSOLE::MESSAGE</name>
+			<value>0x00000003</value>
+		</define>
+		<define>
+			<name>CONSOLE::WARNING</name>
+			<value>0x00000004</value>
+		</define>
+		<define>
+			<name>CONSOLE::ERROR</name>
+			<value>0x00000005</value>
+		</define>
+		
+		<keep-as3-metadata>
+			<name>Event</name>
+			<name>Parameter</name>
+			<name>PluginInfo</name>
+			<name>UIComponent</name>
+			<name>UIConstraint</name>
+			<name>UISkinPart</name>
+		</keep-as3-metadata>
+
+		<!-- Turn on generation of accessible SWFs. -->
+		<accessible>false</accessible>
+
+		<!-- Specifies the locales for internationalization. -->
+		<locale>
+			<locale-element>en_US</locale-element>
+		</locale>
+
+	</compiler>
+
+	<!-- Metadata added to SWFs via the SWF Metadata tag. -->
+	<metadata>
+		<title>Onyx-VJ</title>
+		<description>http://www.onyx-vj.com</description>
+		<language>EN</language>
+	</metadata>
+
+</flex-config>

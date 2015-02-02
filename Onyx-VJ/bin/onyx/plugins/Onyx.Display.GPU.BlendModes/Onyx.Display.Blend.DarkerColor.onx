@@ -1,0 +1,49 @@
+[Plugin.Shader.Info]
+{
+	"Plugin.ID":				"Onyx.Display.Blend.DarkerColor::GPU",
+	"Plugin.Version":			"1.0",
+	"Plugin.Type":				"BlendMode",
+	"Plugin.Author":			"Daniel Hai",
+	"Plugin.Name":				"DarkerColor",
+	"Plugin.Depends":			"Onyx.Core.Display",
+	"Plugin.Visible":			false,
+	"Plugin.Parameters.Fragment":	[
+
+		/* CONST 0 */
+		{
+			"id":		"colorTransform",
+			"type":		"colorTransform",
+			"data":	[
+				1.0, 1.0, 1.0, 1.0
+			]
+		}
+	]
+}
+
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+
+// this isn't working correctly
+tex ft0, v0, fs0 <2d,nomip,nearest>
+tex ft1, v0, fs1 <2d,nomip,nearest>
+mul ft2, ft1.rgb, fc0.www
+mul ft1, ft2.rgb, fc0.rgb
+min ft2.z, ft1.r, ft1.g
+min ft2.z, ft2.z, ft1.b
+max ft2.w, ft1.r, ft1.g
+max ft2.w, ft2.w, ft1.b
+add ft2.x, ft2.z, ft2.w
+min ft2.z, ft0.r, ft0.g
+min ft2.z, ft2.z, ft0.b
+max ft2.w, ft0.r, ft0.g
+max ft2.w, ft2.w, ft0.b
+add ft2.y, ft2.z, ft2.w
+slt ft4, ft2.x, ft2.y
+sge ft3, ft2.x, ft2.y
+mul ft4, ft4, ft1
+mul ft3, ft3, ft0
+add ft4, ft4, ft3
+mov oc, ft4

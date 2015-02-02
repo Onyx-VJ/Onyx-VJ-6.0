@@ -1,0 +1,654 @@
+{
+	"layers": [
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::CPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::CPU"
+					}
+				}
+			},
+			"channel": {
+				"filters": [
+					{
+						"parameters": {
+							"saturation": {
+								"value": 1
+							},
+							"threshold": {
+								"value": 0
+							},
+							"muted": {
+								"value": false
+							},
+							"contrast": {
+								"value": 0.76
+							},
+							"hue": {
+								"value": 0
+							},
+							"brightness": {
+								"value": -0.22666666666666668
+							}
+						},
+						"id": "Onyx.Filter.ColorFilter::CPU"
+					}
+				],
+				"id": "Onyx.Display.Channel::CPU"
+			},
+			"generator": {
+				"parameters": {
+					"streamName": {
+						"value": "livestream"
+					},
+					"connect": {
+						
+					},
+					"host": {
+						"value": "rtmp://localhost/live"
+					}
+				},
+				"path": "/library/daniel.hai/RTMPatch.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb010",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Normal::GPU",
+					"data": {
+						"id": "Onyx.Display.Blend.Normal::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"blend": {
+				"id": "Onyx.Display.Blend.Normal::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"delay": {
+						"value": 7
+					},
+					"boundChannel": "Layer: 0",
+					"rotation": {
+						"value": -2
+					},
+					"translate": {
+						"tx": {
+							"value": -7.432073436000288e-7
+						},
+						"ty": {
+							"value": 5.742963070368883e-7
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1.0000010139831987
+						},
+						"d": {
+							"value": 1.0000010139831987
+						}
+					},
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					}
+				},
+				"path": "/library/SingleChannelDelayGPU.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Exclusion::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.Exclusion::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.Exclusion::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"delay": {
+						"value": 9
+					},
+					"boundChannel": "Layer: 0",
+					"rotation": {
+						"value": -2
+					},
+					"translate": {
+						"tx": {
+							"value": -6.823990642341635e-7
+						},
+						"ty": {
+							"value": 3.054516202022047e-7
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1.0000006916881445
+						},
+						"d": {
+							"value": 1.0000006916881445
+						}
+					},
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					}
+				},
+				"path": "/library/SingleChannelDelayGPU.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb012",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.LinearLight::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.LinearLight::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.LinearLight::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"delay": {
+						"value": 11
+					},
+					"boundChannel": "Layer: 0",
+					"rotation": {
+						"value": -2
+					},
+					"translate": {
+						"tx": {
+							"value": -5.569018029901418e-7
+						},
+						"ty": {
+							"value": -4.994628324094522e-7
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1.0000000147375248
+						},
+						"d": {
+							"value": 1.0000000147375248
+						}
+					},
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					}
+				},
+				"path": "/library/SingleChannelDelayGPU.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb013",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.Average::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							},
+							"null": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.Average::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					},
+					"null": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.Average::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"delay": {
+						"value": 13
+					},
+					"boundChannel": "Layer: 0",
+					"rotation": {
+						"value": -2
+					},
+					"translate": {
+						"tx": {
+							"value": -6.250680689735822e-7
+						},
+						"ty": {
+							"value": 7.390125213095855e-7
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1.0000003789643874
+						},
+						"d": {
+							"value": 1.0000003789643874
+						}
+					},
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					}
+				},
+				"path": "/library/SingleChannelDelayGPU.swf"
+			}
+		},
+		{
+			"parameters": {
+				"colorTransform": {
+					"blueMultiplier": {
+						"value": 1
+					},
+					"alphaMultiplier": {
+						"value": 1,
+						"binding": {
+							"key": "0xb004",
+							"id": "Onyx.Interface.Midi"
+						}
+					},
+					"greenMultiplier": {
+						"value": 1
+					},
+					"redMultiplier": {
+						"value": 1
+					}
+				},
+				"playStart": {
+					"value": 0
+				},
+				"visible": {
+					"value": true
+				},
+				"frameRate": {
+					"value": 0
+				},
+				"time": {
+					"value": 0
+				},
+				"playEnd": {
+					"value": 1
+				},
+				"type": {
+					"value": 0
+				},
+				"playSpeed": {
+					"value": 1
+				},
+				"playMode": {
+					"id": "Onyx.PlayMode.Linear",
+					"data": {
+						"id": "Onyx.PlayMode.Linear"
+					}
+				},
+				"playDirection": {
+					"value": 1
+				},
+				"blendMode": {
+					"id": "Onyx.Display.Blend.VividLight::GPU",
+					"data": {
+						"parameters": {
+							"colorTransform": {
+								
+							},
+							"null": {
+								
+							}
+						},
+						"id": "Onyx.Display.Blend.VividLight::GPU"
+					}
+				}
+			},
+			"channel": {
+				"id": "Onyx.Display.Channel::GPU"
+			},
+			"blend": {
+				"parameters": {
+					"colorTransform": {
+						
+					},
+					"null": {
+						
+					}
+				},
+				"id": "Onyx.Display.Blend.VividLight::GPU"
+			},
+			"generator": {
+				"parameters": {
+					"delay": {
+						"value": 10
+					},
+					"boundChannel": "Layer: 0",
+					"rotation": {
+						"value": -2
+					},
+					"translate": {
+						"tx": {
+							"value": -3.4125875508483375e-7
+						},
+						"ty": {
+							"value": -5.129681425835149e-7
+						}
+					},
+					"scale": {
+						"a": {
+							"value": 1.000000950883944
+						},
+						"d": {
+							"value": 1.000000950883944
+						}
+					},
+					"anchor": {
+						"y": {
+							"value": 0
+						},
+						"x": {
+							"value": 0
+						}
+					}
+				},
+				"path": "/library/SingleChannelDelayGPU.swf"
+			}
+		}
+	],
+	"parameters": {
+		"backgroundColor": "0x0"
+	},
+	"channel": {
+		"id": "Onyx.Display.Channel::MIX"
+	}
+}

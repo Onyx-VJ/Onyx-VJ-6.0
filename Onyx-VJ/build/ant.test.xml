@@ -1,0 +1,31 @@
+<project name="build.test" default="build.run">
+
+	<property name="build.releaseMode"	value="release" />
+	<property name="build.failonerror"	value="true" />
+	<property name="build.root"			location="../../" />
+	<property name="build.output"		location="bin-release" />
+	
+	<property name="build.flexsdk"		location="C:\Program Files (x86)\Adobe\Adobe Flash Builder 4 Plug-in\sdks\4.5.0" />
+	<property name="build.config"		location="${build.root}\Onyx-VJ\config\release.xml" />
+	<property name="build.sdksrc"		location="${build.root}\Onyx.Core.SDK\src" />
+	<property name="build.coresrc"		location="${build.root}\Onyx.Core\src" />
+	<property name="build.coreconfig"	location="${build.root}\Onyx-VJ\bin\onyx\core" />
+	<property name="build.mxmlc"		location="${build.flexsdk}\bin\mxmlc.exe" />
+	<property name="build.asdoc"		location="${build.flexsdk}\bin\aasdoc.bat" />
+	<property name="build.amxmlc"		location="${build.flexsdk}\bin\amxmlc.bat" />
+	<property name="build.compc"		location="${build.flexsdk}\bin\compc.exe" />
+	<property name="build.adt"			location="${build.flexsdk}\bin\adt.bat" />
+	<property name="build.adl"			location="${build.flexsdk}\bin\adl.exe" />
+	<property name="build.sdk"			location="${build.output}/sdk" />
+	<property name="build.debugPath"	location="${build.root}\Onyx-VJ\bin" />
+	
+	<!-- RELEASE -->
+	<target name="build.run">
+		
+		<exec executable="${build.adl}" failonerror="${build.failonerror}" dir="${build.output}">
+			<arg line="${build.output}/Onyx-VJ-app.xml"/>
+		</exec>
+		
+	</target>
+
+</project>

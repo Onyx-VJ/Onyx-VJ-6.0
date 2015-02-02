@@ -1,0 +1,90 @@
+HGH		layers should be able to swap channel types programatically
+
+HGH		displays should add layers programatically, not automatically (for remote layers?)
+			- Affects SDK!
+			- Display::addLayer();
+			
+HGH		finish mix files
+HGH		finish midi module
+
+MED		User documentation
+
+LOW		Audio FFTInput Module (for fast caching of audio data)
+
+LOW		Added parameter for clear/fill color for displaychannel, so that plugins such as transformations can pull that color
+LOW		FRE Plugins (test artoolkit)
+LOW		Need to do a performance GC Pass
+LOW		Module User Interfaces
+		- Add Button Bar too?
+LOW		Bug on mousewheel blend
+LOW		finish tweens.  Implemented, but not really "defined"
+LOW		Display -- multiple channels (defer?)
+LOW		Module setting flushing
+LOW		Finish release build
+LOW		UI constant invalidation when no constraint defined on windows
+
+LOW		Test 1920x1080 camera input
+
+MED		Complete SDK
+
+		- move out of sdk:
+			- mediastream?
+			- initializer?
+			- GUID
+			X DependencyTree
+			X statequeue/istate
+			X onyxhost (these should be loaded at runtime) -
+				x include pluginswf
+
+OVERALL:
+
+X start building cpu filters
+x create public repository
+
+DEFER
+- Need to create focus manager, content
+- Need to create keymanager contexts
+- layer buffers for stopmo / delay / copy
+- actionscript auto-compile host
+- pluginhosts should be registered first, and should re-scan
+- Tempo Module
+
+COMPLETED
+X Parameter creation should not necessarily have to go through PluginSWF (so the ui can create dynamic parameter lists)
+X Parameters do not inherit from base classes (they should)
+X make all the parameters one column, easier
+X Color picker
+X slider needs to deal with range
+x slider: shift equal scale
+x slider: ctrl slow transform
+x slider: right click reset
+x fix layer positioning (matrix/tx)
+x fix event dispatching, need to change from changeevent to something better
+x generator -- all matrices need to scale from center
+x Figure out a way to inherit applicationdomain (not in root)
+x Reusable generators
+x button states for parameters
+x plugin creation needs to be asynchronous then
+x colorpicker
+x implement filter browser
+x ui - fix filter browser constraint
+x thumbnail caching
+	x based on file name
+	- add handlers for file/size/modified? file size / file modified
+x layer copy / delete
+x filter destroy
+x display proxy layer
+x hovers on drop down
+x ui - all factories defined in module
+x ui - import factory information
+x solid color generator
+x When invalid, and layer.alpha === 0, doesn't fully remove
+X		actually, let's remove layer transform.  Doesn't quite make sense
+
+BUG				Using color picker for some reason pauses the app
+X		generator disposal
+  			- generator cache should be handled from generator.dispose, not an event
+X		DisplayCPU should also use a GPU Context rather than just renderMode=direct
+		- Need to test performance
+LOW		startup log
+LOW		Should not be able to add filters to layer without generator (or should we?)

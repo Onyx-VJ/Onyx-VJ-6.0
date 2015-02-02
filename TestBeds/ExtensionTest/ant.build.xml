@@ -1,0 +1,46 @@
+<project name="Onyx.Test.ExtensionTest" default="build.run">
+
+	<property file="${build.root}/lib/build.properties" />
+
+	<tstamp>
+		<format property="plugin.build.timestamp" pattern="yyyymmddHHmmss" />
+	</tstamp>
+
+	<!-- Converts the name of the ant file to the output name (i.e) Onyx.Public.CPU.Filters -->
+	<basename property="plugin.build.name" file="${ant.file}" suffix="xml" />
+
+	<!-- INCLUDE THE DEFAULT PROPERTIES FILE IF THERE IS ONE -->
+	<property file="${plugin.build.name}.properties" />
+	
+	<!-- DEFAULTS -->
+	<property name="plugin.flex.sdk"			location="C:/Program Files (x86)/Adobe/Adobe Flash Builder 4 Plug-in/sdks/4.5.0" />
+	<property name="plugin.flex.mxmlc"			location="${plugin.flex.sdk}/bin/mxmlc.exe" />
+	<property name="plugin.flex.compc"			location="${plugin.flex.sdk}/lib/compc.jar" />
+	<property name="plugin.flex.adt"			location="${plugin.flex.sdk}/lib/adt.jar" />
+	<property name="plugin.flex.adl"			location="${plugin.flex.sdk}/bin/adl.exe" />
+	<property name="plugin.build.target"		location="bin" />
+	<property name="plugin.build.extensionDir"	location="../../Onyx.Core.Plugins/extensions/Onyx.Test.HelloWorldExtension/Onyx.Test.HelloWorldExtension.ane" />
+	<property name="plugin.build.extensionSrc"	location="../../Onyx.Core.Plugins/extensions/Onyx.Test.HelloWorldExtension/src" />
+
+	<target name="build.run">
+		
+        <exec executable="${plugin.flex.mxmlc}" failonerror="true">
+        	<arg line="-load-config='${plugin.flex.sdk}/frameworks/air-config.xml'"/>
+        	<arg line="-source-path='${plugin.build.extensionSrc}'"/>
+        	<arg line="-output='${plugin.build.target}/ExtensionTest.swf'"/>
+        	<arg line="src/ExtensionTest.as"/>
+        </exec>
+
+		<echo>ADL ${plugin.build.target}/ExtensionTest-app.xml</echo>
+		<echo>${plugin.build.extensionDir}</echo>
+		
+        <exec executable="${plugin.flex.adl}">
+			<arg value="${plugin.build.target}/ExtensionTest-app.xml"/>
+			<arg value="-extdir ${plugin.build.extensionDir}"/>
+			<arg value="-file-specs=${plugin.build.extensionSrc}/ExtensionTest.as"/>
+			<arg value="."/>
+        </exec>
+
+	</target>
+
+</project>

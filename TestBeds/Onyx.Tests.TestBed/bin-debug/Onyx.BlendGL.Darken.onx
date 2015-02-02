@@ -1,0 +1,13 @@
+[Plugin.Shader.Vertex]
+mov op, va0
+mov v0, va1
+
+[Plugin.Shader.Fragment]
+tex ft0, v0, fs0 <2d,nearest,nomip,clamp>
+tex ft1, v0, fs1 <2d,nearest,nomip,clamp>
+
+// premultiply
+mul ft2, ft1.xyzw, ft1.wwww
+
+// premultiplied values
+min oc, ft0.xyz, ft2.xyz

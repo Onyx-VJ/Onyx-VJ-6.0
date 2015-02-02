@@ -1,0 +1,26 @@
+<project	name="build.plugins.debug"
+			default="build.plugins.debug"
+>
+
+	<target name="build.plugins.debug">
+		
+	    <subant failonerror="true" verbose="true">
+	        <fileset dir="plugins" includes="**/**.xml"/>
+	    	<property name="plugin.build.config"	value="debug" />
+	    </subant>
+
+		<!-- build the public plugins -->
+	    <subant failonerror="true" verbose="true">
+	    	
+	        <fileset dir="../../Onyx-VJ-Public/Onyx.Public.Plugins/build/" includes="ant.build.all.release.xml"/>
+	    	<property name="plugin.build.target"		location="../../Onyx-VJ-Private/Onyx-VJ/bin" />
+	    	<property name="plugin.build.lib"			location="../../Onyx-VJ-Private/Onyx-VJ/sdk/Onyx.Core.SDK" />
+	    	<property name="plugin.build.configPath"	location="../../Onyx-VJ-Private/Onyx-VJ/config" />
+	    	<property name="plugin.build.config"		value="debug" />
+	    	
+	    	<target name="build.plugins.release" />
+	    </subant>
+		
+	</target>
+
+</project>

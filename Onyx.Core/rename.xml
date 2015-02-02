@@ -1,0 +1,15 @@
+<project name="build.rename" default="rename">
+	
+	<property name="onyx.loc" location="../Onyx-VJ/bin/onyx/core/" />
+	
+	<target name="check">
+	    <available file="${onyx.loc}/OnyxCore.swf" property="core.present"/>
+	</target>
+
+	<!-- RELEASE -->
+	<target name="rename" depends="check" if="core.present">
+	
+		<move file="${onyx.loc}/OnyxCore.swf" tofile="${onyx.loc}/Onyx.Core.swf" />
+		
+	</target>
+</project>
